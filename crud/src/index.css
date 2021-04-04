@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'IRANSans';
+  src: local('IRANSans'), url(./assets/font/IRANSans.ttf) format('truetype');
+}
+*{
+  font-family: IRANSans
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.ag-header-group-cell-label, .ag-header-cell-label{
+  display: grid !important;
+}
+
+
+
