@@ -101,7 +101,6 @@ export class Grid extends Component {
     this.setState({ rowData: this.state.rowData });
   }
   copy(param) {
-    debugger;
     let tmp = {
       id: this.state.rowData[this.state.rowData.length - 1].id+1,
       name: param.name,
@@ -110,9 +109,7 @@ export class Grid extends Component {
       birthData: param.birthData,
     };
     this.state.rowData.push(tmp);
-    console.log("data",this.state.rowData);
-    
-    this.setState({ rowData: this.state.rowData });
+    this.gridApi.setRowData(this.state.rowData);
   }
   render() {
     return (
