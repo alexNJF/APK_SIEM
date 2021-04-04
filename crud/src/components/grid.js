@@ -1,18 +1,29 @@
 import React, { Component } from "react";
+import { render } from "react-dom";
+import { DatePicker } from "jalali-react-datepicker";
 
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
-
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 import BtnCellRenderer from "./btn-cell-renderer";
-
+import { AlignedGridsService } from "ag-grid-community";
+import { Form } from "./form";
 export class Grid extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       columnDefs: [
+        {
+          headerName: "ردیف",
+          field: "rowid",
+          width: 80,
+          cellRenderer: (params) => {
+            let rowId = Number(params.node.id) + 1;
+            return String(rowId);
+          },
+        },
         {
           headerName: "نام و نام خانوادگی",
           field: "name",
@@ -74,8 +85,21 @@ export class Grid extends Component {
         btnCellRenderer: BtnCellRenderer,
       },
       rowData: [],
+      formData: null,
     };
   }
+
+  getFromForm = (childData) => {
+    let tmp = {
+      id: this.state.rowData[this.state.rowData.length - 1].id + 1,
+      name: childData.name,
+      natnalCode: childData.natnalCode,
+      phone: childData.phone,
+      birthData: childData.birthData,
+    };
+    this.state.rowData.push(tmp);
+    this.gridApi.setRowData(this.state.rowData);
+  };
 
   onGridReady = (params) => {
     this.gridApi = params.api;
@@ -102,7 +126,7 @@ export class Grid extends Component {
   }
   copy(param) {
     let tmp = {
-      id: this.state.rowData[this.state.rowData.length - 1].id+1,
+      id: this.state.rowData[this.state.rowData.length - 1].id + 1,
       name: param.name,
       natnalCode: param.natnalCode,
       phone: param.phone,
@@ -114,12 +138,15 @@ export class Grid extends Component {
   render() {
     return (
       <div style={{ width: "100%", height: "100%" }}>
+        <div className="row">
+          <Form parentCallback={this.getFromForm} />
+        </div>
         <div
           id="myGrid"
           style={{
-            height: "50vh",
+            height: "80vh",
           }}
-          className="ag-theme-alpine "
+          className="ag-theme-alpine ml-3 mr-3 "
         >
           <AgGridReact
             enableRtl={true}
