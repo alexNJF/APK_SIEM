@@ -28,5 +28,12 @@ code {
   display: grid !important;
 }
 
+.nYegl label{
+  display: none !important;
+}
+
+.rtl{
+  direction: rtl !important;
+}
 
 

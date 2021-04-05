@@ -9,6 +9,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import BtnCellRenderer from "./btn-cell-renderer";
 import { AlignedGridsService } from "ag-grid-community";
 import { Form } from "./form";
+import * as moment from "moment-jalaali";
 export class Grid extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +48,11 @@ export class Grid extends Component {
           sortable: true,
           filter: true,
           floatingFilter: true,
+          valueFormatter: (params)  => {
+            return moment(params.value, 'YYYY-M-D HH:mm').format(
+              'jYYYY/jM/jD ',
+            );
+          },
         },
         {
           headerName: "تلفن همراه",
@@ -63,7 +69,7 @@ export class Grid extends Component {
           cellRenderer: "btnCellRenderer",
           cellRendererParams: {
             label: "",
-            style: "btn btn-primary fr",
+            style: "btn btn-primary mt-1 mb-1",
             icon: "fa fa-copy",
             clicked: this.copy.bind(this),
           },
@@ -75,7 +81,7 @@ export class Grid extends Component {
           cellRenderer: "btnCellRenderer",
           cellRendererParams: {
             label: "",
-            style: "btn btn-danger",
+            style: "btn btn-danger mt-1 mb-1",
             icon: "fa fa-trash",
             clicked: this.remove.bind(this),
           },
@@ -137,14 +143,14 @@ export class Grid extends Component {
   }
   render() {
     return (
-      <div style={{ width: "100%", height: "100%" }}>
+      <div className="container-fluid" >
         <div className="row">
           <Form parentCallback={this.getFromForm} />
         </div>
         <div
           id="myGrid"
           style={{
-            height: "80vh",
+            height: "40vh",
           }}
           className="ag-theme-alpine ml-3 mr-3 "
         >
