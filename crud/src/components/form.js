@@ -6,17 +6,14 @@ import * as moment from "moment-jalaali";
 export class Form extends Component {
   constructor(props) {
     super(props);
-    this.setState({ birthData:  new Date().toLocaleDateString() });
-    console.log("state",this.state);
   }
   sendData = () => {
     this.props.parentCallback(this.state);
   };
   mySubmitHandler = (event) => {
     event.preventDefault();
-    console.log("form value:", this.state);
+    console.log("State", this.state);
     this.sendData();
-    //alert("You are submitting " + this.state.username);
   };
   myChangeHandler = (event) => {
     if (event.target.name === "name")
@@ -25,7 +22,14 @@ export class Form extends Component {
       this.setState({ natnalCode: event.target.value });
     if (event.target.name === "phone")
       this.setState({ phone: event.target.value });
+
+    if (!this.state?.hasOwnProperty("birthData")) {
+      let tmpDate = new Date().toISOString().split('T')[0];
+     
+      this.setState({ birthData: tmpDate });
+    }
   };
+
   dataChecker = ({ value }) => {
     this.setState({ birthData: value._i });
   };
@@ -50,7 +54,7 @@ export class Form extends Component {
               </div>
             </div>
             <div className="col-3">
-              <div class="form-group">
+              <div className="form-group">
                 <input
                   dir="rtl"
                   type="text"
@@ -66,7 +70,7 @@ export class Form extends Component {
               </div>
             </div>
             <div className="col-3">
-              <div class="form-group">
+              <div className="form-group">
                 <input
                   dir="rtl"
                   type="text "
@@ -79,7 +83,7 @@ export class Form extends Component {
               </div>
             </div>
             <div className="col-3">
-              <div class="form-group">
+              <div className="form-group">
                 <DatePicker
                   className="form-control rtl"
                   timePicker={false}
@@ -89,9 +93,11 @@ export class Form extends Component {
             </div>
           </div>
           <div className="row ">
-              <div className="col-12">
-                  <button type="submit" class="btn btn-block btn-primary">افزودن</button>
-              </div>
+            <div className="col-12">
+              <button type="submit" className="btn btn-block btn-primary">
+                افزودن
+              </button>
+            </div>
           </div>
         </form>
         <hr />
